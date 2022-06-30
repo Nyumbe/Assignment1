@@ -1,0 +1,1 @@
+SELECT cinema.title,genres.genre FROM cinema LEFT JOIN genres ON cinema.id=genres.gid;
