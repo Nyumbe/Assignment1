@@ -1,2 +1,2 @@
-# Databases
+# Assignment1
 for database assignments
