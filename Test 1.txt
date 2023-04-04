@@ -1,0 +1,95 @@
+
+CREATE DATABASE Customers;
+use Customers;
+-- Practical 1
+CREATE TABLE Client (Clientno char(6), Name Varchar(20) NOT NULL, City Varchar(50) NOT NULL, Pin INT, Mobile Char(10), PRIMARY KEY(Clientno));
+
+DESC Client;
+-- Practical 2
+INSERT INTO Client VALUES ('COOOO1', 'Ivan Bayross', 'Bombay', 400054, '3456212343');
+INSERT INTO Client VALUES ('COOO02', 'Vandana Saitwal', 'Madras', 780001, '8976532322');
+INSERT INTO Client VALUES ('COOO03', 'Pramada Jaguste', 'Bombay', 400007, '9090898765');
+INSERT INTO Client VALUES ('COOO04', 'Ravi Shreedharan', 'Delhi', 110020, '8727121232');
+INSERT INTO Client VALUES ('COOO05', 'Rukmani', 'Kolkata', 340003, '2312376543');
+INSERT INTO Client VALUES ('COOO06', 'Pradeep Singhania', 'Jaipur', 130102, '1222132333');
+INSERT INTO Client VALUES ('COOO07', 'Geoge Ravichandran', 'Kolkata', 340010, '3323211232');
+INSERT INTO Client VALUES ('COOO08', 'D Ravichandran', 'Bombay', 40014, '2212387896');
+
+SELECT * FROM Client;
+-- Practical 3
+SELECT Name FROM Client WHERE Name LIKE "%van%";
+-- Practical 4
+SELECT * FROM Client WHERE City != "Bombay";
+-- Practical 5
+SELECT DISTINCT(City) FROM Client;
+
+-- practical 6.
+CREATE TABLE Club (Coachid INT, Coachname Varchar(20) NOT NULL, Age INT NOT NULL, Sport varchar(15), Dateofapp DATE, Pay INT, Gender char(10), PRIMARY KEY(Coachid));
+
+INSERT INTO Club VALUES(1, 'Karan', 35, 'Karate', '27/03/19', 1000, 'M');
+INSERT INTO Club VALUES(2, 'Ravina', 34, 'Karate', '20/01/20', 12000, 'F');
+INSERT INTO Club VALUES(3, 'Kamal', 34, 'Squash', '19/02/20', 20000, 'M');
+INSERT INTO Club VALUES(4, 'Tarun', 33, 'Basketball', '01/01/20', 15000, 'M');
+INSERT INTO Club VALUES(5, 'Sumeru', 36, 'Swimming', '12/01/20', 7500, 'M');
+INSERT INTO Club VALUES(6, 'Anjani', 36, 'Swimming', '24/02/20', 8000, 'F');
+INSERT INTO Club VALUES(7, 'Shamima', 37, 'Squash', '20/02/20', 22000, 'F');
+INSERT INTO Club VALUES(8, 'Soumya', 37, 'Karate', '22/02/20', 11000, 'F');
+
+
+i. When a foreign key column D in a table Z is specified with the "on delete set null" condition/action, it means that if a row in the referenced table is deleted, then the corresponding value of column D in all rows of table Z that referenced the deleted row will be set to null. In other words, the action will set the foreign key column D to null in all rows of table Z that referenced the deleted row in the referenced table.
+
+For example, suppose we have two tables, Orders and Customers. The Orders table has a foreign key column CustomerID that references the Customers table. If we specify the "on delete set null" action for the CustomerID column in the Orders table, and then a row in the Customers table with the CustomerID value of 1 is deleted, then all rows in the Orders table that referenced the deleted CustomerID value of 1 will have their CustomerID column set to null.
+
+ii. The "on delete set null" action cannot be carried out if the foreign key column D in the referencing table Z is part of a composite foreign key with other columns, and those columns are not nullable. In this case, setting the foreign key column D to null would violate the composite foreign key constraint.
+
+For example, suppose we have two tables, Orders and OrderDetails. The Orders table has a composite foreign key consisting of the columns OrderID and CustomerID, both of which reference the Customers table. If we specify the "on delete set null" action for the CustomerID column in the Orders table, and then a row in the Customers table with the CustomerID value of 1 is deleted, we cannot set the CustomerID column to null in the Orders table because the OrderID column is also part of the composite foreign key and cannot be null.
+
+iii. Two types of privileges commonly used in databases are:
+
+SELECT privilege: This privilege allows a user to retrieve data from a table or view in the database. With the SELECT privilege, a user can read data but cannot modify it.
+
+UPDATE privilege: This privilege allows a user to modify existing data in a table or view in the database. With the UPDATE privilege, a user can change values in specific columns of a table or view but cannot add or delete rows.
+
+iv. Four security mechanisms that can be employed to ensure optimum security of a database system are:
+
+Authentication: This involves verifying the identity of users who are accessing the database system. Authentication can be achieved using techniques such as passwords, biometrics, and smart cards.
+
+Authorization: This involves controlling what actions users can perform on the database system. Authorization can be implemented using roles, privileges, and access control lists (ACLs).
+
+Encryption: This involves encoding data in a way that makes it unreadable without the appropriate decryption key. Encryption can be used to protect sensitive data, such as passwords and credit card numbers, from unauthorized access.
+
+Auditing: This involves monitoring the database system to detect and investigate security breaches or other suspicious activity. Auditing can be used to track user activity, identify security vulnerabilities, and ensure compliance with regulations and policies.
+
+
+
+
+To set up your guest Windows on VirtualBox so that you can access it remotely, follow these steps:
+
+In VirtualBox, select the virtual machine you want to access remotely and click on "Settings."
+
+In the Settings window, click on "Network" in the left sidebar.
+
+In the Adapter 1 tab, select "Bridged Adapter" in the Attached to dropdown menu. This will allow your guest Windows to get an IP address from your network router.
+
+Click on the Advanced dropdown and select "Promiscuous Mode: Allow All."
+
+Click on the Adapter 2 tab, select "Host-only Adapter" in the Attached to dropdown menu. This will allow your guest Windows to communicate with your host computer.
+
+Click on the OK button to save the changes.
+
+Start the virtual machine and log in to the guest Windows.
+
+In the guest Windows, open the Control Panel and click on "System and Security."
+
+Click on "Allow remote access" and select "Allow remote connections to this computer."
+
+Under the Remote Desktop section, select "Allow remote connections to this computer" and click on the OK button.
+
+Take note of the IP address of the guest Windows. You can find this by opening a Command Prompt window and typing "ipconfig" (without quotes).
+
+On your host computer, open Remote Desktop Connection and type in the IP address of the guest Windows.
+
+Click on the Connect button and enter the username and password for the guest Windows when prompted.
+
+You should now be able to access your guest Windows remotely through Remote Desktop Connection.
+

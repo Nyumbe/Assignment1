@@ -1,0 +1,120 @@
+CREATE DATABASE Student_Results;
+use Student_Results;
+-- Create the students table
+CREATE TABLE students (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  date_of_birth DATE NOT NULL,
+  PRIMARY KEY (id)
+);
+
+-- Create the grades table
+CREATE TABLE grades (
+  student_id INT NOT NULL AUTO_INCREMENT,
+  subject VARCHAR(50) NOT NULL,
+  grade INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (student_id) REFERENCES students(id)
+);
+
+-- 1.
+SELECT * FROM students;
+-- 2.
+ALTER TABLE grades ADD teacher VARCHAR(50);
+-- 3.
+UPDATE grades SET teacher = 'Mr. Smith';
+-- 4.
+DELETE FROM grades WHERE grade < 60;
+-- 5.
+DROP TABLE grades;
+-- 6.
+INSERT INTO students (name, date_of_birth) VALUES ('John Doe', '2000-01-01');
+-- 7.
+SELECT * FROM students WHERE name LIKE '%John%';
+-- 8.
+SELECT * FROM students WHERE date_of_birth BETWEEN '2000-01-01' AND '2010-12-31' ORDER BY name DESC;
+-- 9.
+SELECT * FROM grades WHERE subject LIKE '%Math%';
+-- 10.
+ALTER TABLE students ADD PRIMARY KEY (id);
+-- 11.
+ALTER TABLE grades ADD FOREIGN KEY (student_id) REFERENCES students(id);
+-- 12.
+SELECT students.name, grades.subject
+FROM students
+INNER JOIN grades
+ON students.id = grades.student_id
+WHERE grades.grade >= 80;
+
+-- 13.
+SELECT students.name, grades.subject
+FROM students
+LEFT OUTER JOIN grades ON students.id = grades.student_id
+WHERE grades.grade < 60;
+
+-- 14.
+SELECT name, subject
+FROM students
+NATURAL JOIN grades
+WHERE grades.subject LIKE '%Science%';
+
+-- 15.
+SELECT students.name, grades.subject
+FROM students
+CROSS JOIN grades
+WHERE grades.grade >= 80;
+
+-- 16.
+SELECT students.name, grades.subject
+FROM students
+FULL OUTER JOIN grades ON students.id = grades.student_id
+WHERE grades.grade < 60;
+
+-- 17. using an inner join
+SELECT students.name, grades.subject, grades.grade
+FROM students
+INNER JOIN grades ON students.id = grades.student_id
+WHERE grades.grade >= 80 AND grades.subject LIKE '%Math%'
+AND students.date_of_birth BETWEEN '2000-01-01' AND '2010-12-31'
+ORDER BY students.name ASC;
+
+-- using a natural join
+SELECT name, subject, grade 
+FROM students NATURAL JOIN grades 
+WHERE grade >= 80 AND subject LIKE '%Math%' AND date_of_birth BETWEEN '2000-01-01' AND '2010-12-31' 
+ORDER BY name ASC;
+
+--using a cross join
+SELECT s.name, g.subject, g.grade
+FROM students s
+CROSS JOIN grades g
+WHERE g.grade >= 80 
+  AND g.subject LIKE '%Math%'
+  AND s.date_of_birth BETWEEN '2000-01-01' AND '2010-12-31'
+ORDER BY s.name ASC;
+
+
+NIST states “During collection, data related to a specific event is identified, labeled, recorded, and collected, and its integrity is preserved. In the second phase, examination, forensic tools and techniques appropriate to the types of data that were collected are executed to identify and extract the relevant information from the collected data while protecting its integrity. Examination may use a combination of automated tools and manual processes. The next phase, analysis, involves analyzing the results of the examination to derive useful information that addresses the questions that were the impetus for performing the collection and examination. The final phase involves reporting the results of the analysis, which may include describing the actions performed, determining what other actions need to be performed, and recommending improvements to policies, guidelines, procedures, tools, and other aspects of the forensic process.“
+
+Identification: Recognizable proof is the demonstration of looking, distinguishing, and recording computerized proof. During this cycle, the DEFR (digital evidence first responder) must inspect all gadgets utilized in the execution of a crime just as those disguised gadgets, which appears to be superfluous from the start look. (Federici, 2014; Chung et al., 2012). Furthermore, one of the most important steps after identification is to click photographs of the crime scene so that if an evidence goes missing or hasn’t been identified by the forensics team, the photographs will enable us to bridge the gap.
+
+Collection/Acquisition: The physical evidence including any digital gadget should be collected with a pair of gloves to avoid any form of tampering to the evidence. Usually, faraday bags or anti-static bags are employed to collection the physical evidence which generally would include a smartphone, computer, laptop, tablet and so on. One of the constant factor that needs to be in place is to check for the integrity of the evidence. The checksums needs to be obtained so that while investigation, we can compare the checksum values of the evidence. An important tip from NIST states
+
+“Before the analyst begins to collect any data, a decision should be made by the analyst or
+management (in accordance with the organizationís policies and legal advisors) on the need to collect and preserve evidence in a way that supports its use in future legal or internal disciplinary proceedings.“
+
+The Norwich university postulates “Perhaps the most critical facet of successful computer forensic investigation is a rigorous, detailed plan for acquiring evidence. Extensive documentation is needed prior to, during, and after the acquisition process; detailed information must be recorded and preserved, including all hardware and software specifications, any systems used in the investigation process, and the systems being investigated. This step is where policies related to preserving the integrity of potential evidence are most applicable. General guidelines for preserving evidence include the physical removal of storage devices, using controlled boot discs to retrieve sensitive data and ensure functionality, and taking appropriate steps to copy and transfer evidence to the investigator’s system.”
+
+Analysis/Examination: The most interesting part of the process as analysis or examination of the digital evidence reveals the underlying information or a possible hint leading to the crime. A copy of the original evidence should be made which should be used for further investigation. In order to effectively investigate potential evidence, procedures must be in place for retrieving, copying, and storing evidence within appropriate databases.
+
+Investigators typically examine data from designated archives, using a variety of methods and approaches to analyze information; these could include utilizing analysis software to search massive archives of data for specific keywords or file types, as well as procedures for retrieving files that have been recently deleted. Data tagged with times and dates is particularly useful to investigators, as are suspicious files or programs that have been encrypted or intentionally hidden. Fortunately, various tools and techniques can be used to reduce the amount of data that has to be sifted through. Text and pattern searches can be used to identify pertinent data, such as finding documents that mention a particular subject or person, or identifying e-mail log entries for a particular e-mail address.
+
+Reporting: Now, that some information has been drawn based on the analysis of the evidence, the final phase is reporting, which is the process of preparing and presenting the information resulting from the analysis phase. In addition to fully documenting information related to hardware and software specs, computer forensic investigators must keep an accurate record of all activity related to the investigation, including all methods used for testing system functionality and retrieving, copying, and storing data, as well as all actions taken to acquire, examine and assess evidence.
+
+NIST states some factors that should be considered while reporting include alternative explanations, audience consideration and actionable information.
+
+As part of the reporting process, analysts should identify any problems that may need to be remedied, such as policy shortcomings or procedural errors. Many forensic and incident response teams hold formal reviews after each major event. Such reviews tend to include serious consideration of possible improvements to guidelines and procedures, and typically at least some minor changes are approved and implemented after each review.
+
+Some of the useful forensics reading sources that outlines various processes include NIST forensics framework, APCO good practice and SANS forensics framework. In addition to these documentation, NIST has also outlines best practices for first responders.
+
+With a growing rate of cyberattacks and cyber threats, digital forensics will act as a paramount factor for an organization especially to the legal companies that protect and safeguard digital information
